@@ -1,0 +1,39 @@
+import java.util.Set;
+import java.util.HashSet;
+
+class Solution {
+    public static int longestKSubstr(String s, int k) {
+        
+        int ans = -1;  
+
+        // set to track unique characters in current substring
+        Set<Character> st = new HashSet<>();  
+
+        for (int i = 0; i < s.length(); i++) {
+            
+            // reset the set for a new starting index - 'i'
+            st.clear();  
+
+            // expand the substring from index i to j
+            for (int j = i; j < s.length(); j++) {
+                st.add(s.charAt(j)); 
+
+                // number of unique characters becomes exactly k,
+                if (st.size() == k) {
+                    ans = Math.max(ans, j - i + 1);
+                }
+                
+                if(st.size() > k) break;
+            }
+        }
+
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        String s = "aabacbebebe";
+        int k = 3;
+
+        System.out.println(longestKSubstr(s, k));
+    }
+}
