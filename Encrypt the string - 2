@@ -1,0 +1,57 @@
+import java.util.*;
+
+public class Solution{
+    // Function to convert Decimal to Hex
+    static String convertToHex(int num) {
+        StringBuilder temp = new StringBuilder();
+        while (num != 0) {
+            int rem = num % 16;
+            if (rem < 10) {
+                temp.append((char)(rem + '0'));
+            } else {
+                temp.append((char)(rem - 10 + 'a'));
+            }
+            num = num / 16;
+        }
+        return temp.reverse().toString();
+    }
+
+    // Function to encrypt the string
+    static String encryptString(String s) {
+        StringBuilder ans = new StringBuilder();
+        int n = s.length();
+
+        // Iterate the characters of the string
+        for (int i = 0; i < n; i++) {
+            char ch = s.charAt(i);
+            int count = 0;
+
+            // Iterate until S[i] is equal to ch
+            while (i < n && s.charAt(i) == ch) {
+                // Update count and i
+                count++;
+                i++;
+            }
+
+            // Decrement i by 1
+            i--;
+
+            // Convert count to hexadecimal representation
+            String hex = convertToHex(count);
+
+            // Append the character
+            ans.append(ch);
+
+            // Append the characters frequency in hexadecimal representation
+            ans.append(hex);
+        }
+
+        // Reverse the obtained answer
+        return ans.reverse().toString();
+    }
+
+    public static void main(String[] args) {
+        String s = "abc";
+        System.out.println(encryptString(s));
+    }
+}
