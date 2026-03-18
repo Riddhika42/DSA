@@ -1,0 +1,34 @@
+class Solution {
+    static int getLPSLength(String s) {
+        int res = 0;
+        int n = s.length();
+
+        // iterating over all possible lengths
+        for (int len = 1; len < n; len++) {
+
+            // starting index of suffix
+            int j = s.length() - len;
+
+            boolean flag = true;
+
+            // comparing proper prefix with suffix of length 'len'
+            for (int k = 0; k < len; k++) {
+                if (s.charAt(k) != s.charAt(j + k)) {  
+                    flag = false;
+                    break;
+                }
+            }
+
+            // if they match, update the result
+            if (flag)
+                res = len;
+        }
+
+        return res;
+    }
+
+    public static void main(String[] args) {
+        String s = "ababab";
+        System.out.println(getLPSLength(s)); 
+    }
+}

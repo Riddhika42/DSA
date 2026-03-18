@@ -1,0 +1,59 @@
+import java.util.Arrays;
+
+class Solution {
+
+    // A function to find rank of a string in all permutations
+    // of characters
+    static int findRank(String str) {
+
+        // Create a copy of the original 
+        // string to keep it unchanged
+        String original = str;
+
+        // Convert to character array for sorting and permutation
+        char[] arr = str.toCharArray();
+
+        // Sort the string to get the first 
+        // permutation in lexicographic order
+        Arrays.sort(arr);
+
+        int rank = 1;
+
+        // Keep generating next permutation
+        // until we find the original string
+        while (!String.valueOf(arr).equals(original)) {
+            nextPermutation(arr);
+            rank++;
+        }
+
+        return rank;
+    }
+
+    static void nextPermutation(char[] arr) {
+        int i = arr.length - 2;
+        while (i >= 0 && arr[i] >= arr[i + 1]) i--;
+
+        if (i >= 0) {
+            int j = arr.length - 1;
+            while (arr[j] <= arr[i]) j--;
+            char temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+
+        reverse(arr, i + 1, arr.length - 1);
+    }
+
+    static void reverse(char[] arr, int start, int end) {
+        while (start < end) {
+            char temp = arr[start];
+            arr[start++] = arr[end];
+            arr[end--] = temp;
+        }
+    }
+
+    public static void main(String[] args) {
+        String str = "string";
+        System.out.println(findRank(str));
+    }
+}

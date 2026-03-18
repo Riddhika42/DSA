@@ -1,0 +1,28 @@
+class Solution {
+
+    static int optimalKeys(int n) {
+        // The optimal string length is n when n is smaller than 7
+        if (n <= 6)
+            return n;
+
+        // Initialize result
+        int max = 0;
+
+        // Try all possible break-points 'b' after which we
+        // will have Ctrl-A, Ctrl-C and then only Ctrl-V all the way.
+        for (int b = n - 3; b >= 1; b--) {
+            
+            // If the breakpoint is b at b'th keystroke then the optimal
+            // string would have length (n - b - 1) * optimalKeys(b);
+            int curr = (n - b - 1) * optimalKeys(b);
+            if (curr > max)
+                max = curr;
+        }
+        return max;
+    }
+
+    public static void main(String[] args) {
+        int n = 7;
+        System.out.println(optimalKeys(n));
+    }
+}
