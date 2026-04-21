@@ -1,0 +1,33 @@
+class Solution {
+    public boolean isHappy(int n) {
+        Set<Integer>Look = new HashSet<>();
+
+        while(n!=1)
+        {
+            n = sumOfSqrt(n);
+
+            if(Look.contains(n))
+            {
+                return false ;
+            }
+            Look.add(n);
+        }
+        return true ;
+    }
+
+
+    private  int sumOfSqrt(int n)
+    {
+        int res = 0 ;
+
+        while(n!=0)
+        {
+            int dig = n%10 ; 
+            res = res + dig * dig ;
+            n=n/10 ;
+        }
+
+        return res ;
+
+    } 
+};
