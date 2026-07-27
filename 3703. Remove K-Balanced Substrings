@@ -1,0 +1,38 @@
+class Solution {
+    public String removeSubstring(String s, int k) {
+        StringBuilder stack = new StringBuilder();
+
+        for (char ch : s.toCharArray()) 
+        {
+            stack.append(ch);
+            if (stack.length() >= 2 * k)
+            
+             {
+                boolean valid = true;
+                for (int i = stack.length() - k; i < stack.length(); i++) 
+                {
+                    if (stack.charAt(i) != ')') {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) 
+                {
+                    for (int i = stack.length() - 2 * k; 
+                         i < stack.length() - k; i++) {
+                        if (stack.charAt(i) != '(') {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+                if (valid) 
+                {
+                    stack.delete(stack.length() - 2 * k, stack.length());
+                }
+            }
+        }
+
+        return stack.toString();
+    }
+}
