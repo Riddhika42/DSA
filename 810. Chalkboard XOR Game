@@ -1,0 +1,19 @@
+class Solution {
+    public boolean xorGame(int[] nums)
+    {
+
+        int total = 0;
+
+        for (int x : nums)
+        {
+            total ^= x;
+        }
+
+        if (total == 0) 
+        {
+            return true;
+        }
+
+        return nums.length % 2 == 0;
+    }
+}
